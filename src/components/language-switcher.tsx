@@ -9,10 +9,15 @@ import { useParams } from "next/navigation";
 interface LanguageSwitcherProps {}
 
 export default function LanguageSwitcher() {
-  const locale = useLocale();
+  const currentLocale = useLocale();
   const router = useRouter();
   const params = useParams();
   const pathname = usePathname();
+
+  const flags: Record<Locale, string> = {
+    en: "🇬🇧",
+    de: "🇩🇪",
+  };
 
   const onSelectChange = (newLocale: string) => {
     router.replace(
@@ -25,14 +30,14 @@ export default function LanguageSwitcher() {
   };
 
   return (
-    <Select defaultValue={locale} onValueChange={onSelectChange}>
+    <Select defaultValue={currentLocale} onValueChange={onSelectChange}>
       <SelectTrigger>
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
         {routing.locales.map((locale) => (
           <SelectItem key={locale} value={locale}>
-            {locale}
+            {locale} {flags[locale]}
           </SelectItem>
         ))}
       </SelectContent>
