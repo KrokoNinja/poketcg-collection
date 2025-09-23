@@ -1,9 +1,8 @@
 import { assertLocale } from "@/i18n/routing";
 import TCGdex from "@tcgdex/sdk";
 import { getLocale } from "next-intl/server";
+import Image from "next/image";
 import { notFound } from "next/navigation";
-
-interface SampleCardProps {}
 
 export default async function SampleCard() {
   const locale = await getLocale();
@@ -24,7 +23,7 @@ export default async function SampleCard() {
   return (
     <div>
       <p>{card.name}</p>
-      <img src={card.getImageURL("low", "webp")} alt={card.name} />
+      <Image src={card.getImageURL("low", "webp")} alt={card.name} />
     </div>
   );
 }
