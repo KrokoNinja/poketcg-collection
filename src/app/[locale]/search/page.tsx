@@ -1,8 +1,6 @@
 import PokemonSetList from "@/components/pokemon-set-list";
 import { Suspense } from "react";
 
-interface SearchPageProps {}
-
 export default function SearchPage() {
   return (
     <div>

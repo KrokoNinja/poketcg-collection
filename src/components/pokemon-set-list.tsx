@@ -3,11 +3,9 @@ import { assertLocale } from "@/i18n/routing";
 import TCGdex from "@tcgdex/sdk";
 import { notFound } from "next/navigation";
 import ContentWrapper from "./content-wrapper";
-import { useQuery, useSuspenseQuery } from "@tanstack/react-query";
+import { useSuspenseQuery } from "@tanstack/react-query";
 import { useLocale, useTranslations } from "next-intl";
 import PokemonSetSingle from "./pokemon-set-single";
-
-interface PokemonSetListProps {}
 
 export default function PokemonSetList() {
   const locale = useLocale();

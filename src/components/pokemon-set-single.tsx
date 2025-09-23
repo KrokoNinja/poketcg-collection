@@ -1,6 +1,7 @@
 import getDefaultLanguageSetLogo from "@/lib/tcgdex";
 import { SetResume } from "@tcgdex/sdk";
 import { useTranslations } from "next-intl";
+import Image from "next/image";
 
 interface PokemonSetSingleProps {
   set: SetResume;
@@ -21,7 +22,7 @@ export default function PokemonSetSingle({ set }: PokemonSetSingleProps) {
 
   return (
     <li key={set.id} className="border rounded p-2 flex flex-col">
-      <img
+      <Image
         src={`${setLogo}.webp`}
         alt={set.name}
         className="mb-2 h-32 object-contain"
