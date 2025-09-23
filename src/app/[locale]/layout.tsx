@@ -6,6 +6,7 @@ import { routing } from "@/i18n/routing";
 import { notFound } from "next/navigation";
 import { ThemeProvider } from "@/components/theme-provider";
 import Navbar from "@/components/navbar";
+import TanstackQueryProvider from "@/components/tanstack-query-provider";
 
 const geistSans = Geist({
   variable: "--font-geist-sans",
@@ -44,10 +45,12 @@ export default async function RootLayout({ children, params }: Props) {
           enableSystem
           disableTransitionOnChange
         >
-          <NextIntlClientProvider>
-            <Navbar />
-            {children}
-          </NextIntlClientProvider>
+          <TanstackQueryProvider>
+            <NextIntlClientProvider>
+              <Navbar />
+              {children}
+            </NextIntlClientProvider>
+          </TanstackQueryProvider>
         </ThemeProvider>
       </body>
     </html>

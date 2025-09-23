@@ -1,5 +1,42 @@
 {
+  "Navigation": {
+    "collection": "Collection",
+    "search": "Search"
+  },
   "HomePage": {
     "title": "Hello world!"
+  },
+  "TCGdex": {
+    "card": "Card",
+    "cards": "Cards",
+    "set": "Set",
+    "type": "Type",
+    "rarity": "Rarity",
+    "hp": "HP",
+    "artist": "Artist",
+    "series": "Series",
+    "number": "Number",
+    "legalities": "Legalities",
+    "weaknesses": "Weaknesses",
+    "resistances": "Resistances",
+    "retreatCost": "Retreat Cost",
+    "evolvesFrom": "Evolves From",
+    "abilities": "Abilities",
+    "attacks": "Attacks",
+    "effect": "Effect",
+    "damage": "Damage",
+    "cost": "Cost",
+    "regulationMark": "Regulation Mark",
+    "flavorText": "Flavor Text",
+    "dexEntry": "Dex Entry",
+    "height": "Height",
+    "weight": "Weight"
+  },
+  "ErrorMessages": {
+    "SetList": {
+      "noSets": "No sets could be found.",
+      "loadingSets": "Loading sets...",
+      "errorLoadingSets": "Error loading sets."
+    }
   }
 }

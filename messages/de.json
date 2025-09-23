@@ -1,5 +1,42 @@
 {
+  "Navigation": {
+    "collection": "Sammlung",
+    "search": "Suche"
+  },
   "HomePage": {
     "title": "Hallo Welt!"
+  },
+  "TCGdex": {
+    "card": "Karte",
+    "cards": "Karten",
+    "set": "Set",
+    "type": "Typ",
+    "rarity": "Seltenheit",
+    "hp": "KP",
+    "artist": "Künstler",
+    "series": "Serie",
+    "number": "Nummer",
+    "legalities": "Legalität",
+    "weaknesses": "Schwächen",
+    "resistances": "Resistenzen",
+    "retreatCost": "Rückzugskosten",
+    "evolvesFrom": "Entwickelt sich aus",
+    "abilities": "Fähigkeiten",
+    "attacks": "Attacken",
+    "effect": "Effekt",
+    "damage": "Schaden",
+    "cost": "Kosten",
+    "regulationMark": "Regulierungsmarke",
+    "flavorText": "Flavortext",
+    "dexEntry": "Dex Eintrag",
+    "height": "Größe",
+    "weight": "Gewicht"
+  },
+  "ErrorMessages": {
+    "SetList": {
+      "noSets": "Es konnten keine Sets gefunden werden.",
+      "loadingSets": "Lade Sets...",
+      "errorLoadingSets": "Fehler beim Laden der Sets."
+    }
   }
 }
