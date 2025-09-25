@@ -8,54 +8,54 @@ import { useLocale, useTranslations } from "next-intl";
 import PokemonSetSingle from "./pokemon-set-single";
 
 export default function PokemonSetList() {
-  const locale = useLocale();
-  const messageTranslations = useTranslations("ErrorMessages");
+	const locale = useLocale();
+	const messageTranslations = useTranslations("ErrorMessages");
 
-  try {
-    assertLocale(locale);
-  } catch {
-    notFound();
-  }
+	try {
+		assertLocale(locale);
+	} catch {
+		notFound();
+	}
 
-  const tcgdex = new TCGdex(locale);
+	const tcgdex = new TCGdex(locale);
 
-  const { data, error, isPending } = useSuspenseQuery({
-    queryKey: ["sets", locale],
-    queryFn: () => tcgdex.set.list(),
-  });
+	const { data, error, isPending } = useSuspenseQuery({
+		queryKey: ["sets", locale],
+		queryFn: () => tcgdex.set.list(),
+	});
 
-  if (error) {
-    return (
-      <ContentWrapper className="flex justfiy-center items-center w-full h-full">
-        <span>{messageTranslations("SetList.errorLoadingSets")}</span>
-      </ContentWrapper>
-    );
-  }
+	if (error) {
+		return (
+			<ContentWrapper className="flex justfiy-center items-center w-full h-full">
+				<span>{messageTranslations("SetList.errorLoadingSets")}</span>
+			</ContentWrapper>
+		);
+	}
 
-  if (isPending) {
-    return (
-      <ContentWrapper className="flex justfiy-center items-center w-full h-full">
-        <span>{messageTranslations("SetList.loadingSets")}</span>
-      </ContentWrapper>
-    );
-  }
-  const sets = data ?? [];
+	if (isPending) {
+		return (
+			<ContentWrapper className="flex justfiy-center items-center w-full h-full">
+				<span>{messageTranslations("SetList.loadingSets")}</span>
+			</ContentWrapper>
+		);
+	}
+	const sets = data ?? [];
 
-  if (!sets) {
-    return (
-      <ContentWrapper className="flex justfiy-center items-center w-full h-full">
-        <span>{messageTranslations("SetList.noSets")}</span>
-      </ContentWrapper>
-    );
-  }
+	if (!sets) {
+		return (
+			<ContentWrapper className="flex justfiy-center items-center w-full h-full">
+				<span>{messageTranslations("SetList.noSets")}</span>
+			</ContentWrapper>
+		);
+	}
 
-  return (
-    <ContentWrapper>
-      <ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
-        {sets.map((set) => (
-          <PokemonSetSingle key={set.id} set={set} />
-        ))}
-      </ul>
-    </ContentWrapper>
-  );
+	return (
+		<ContentWrapper>
+			<ul className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-4">
+				{sets.map(set => (
+					<PokemonSetSingle key={set.id} set={set} />
+				))}
+			</ul>
+		</ContentWrapper>
+	);
 }

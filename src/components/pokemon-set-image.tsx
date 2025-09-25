@@ -1,5 +1,5 @@
 import { Skeleton } from "./ui/skeleton";
-import getDefaultLanguageSetLogo from "@/lib/tcgdex";
+import { getDefaultLanguageSetLogo } from "@/lib/tcgdex";
 import { useQuery } from "@tanstack/react-query";
 import { SetResume } from "@tcgdex/sdk";
 import Image from "next/image";
