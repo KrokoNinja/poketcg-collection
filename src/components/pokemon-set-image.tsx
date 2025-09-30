@@ -1,3 +1,5 @@
+"use client";
+import { useTcgdex } from "@/lib/context";
 import { Skeleton } from "./ui/skeleton";
 import { getDefaultLanguageSetLogo } from "@/lib/tcgdex";
 import { useQuery } from "@tanstack/react-query";
@@ -9,9 +11,10 @@ interface PokemonSetImageProps {
 }
 
 export default function PokemonSetImage({ set }: PokemonSetImageProps) {
+	const tcgdex = useTcgdex();
 	const { data, isPending, isError } = useQuery({
 		queryKey: [`setLogo`, set.id],
-		queryFn: () => getDefaultLanguageSetLogo(set.id),
+		queryFn: () => getDefaultLanguageSetLogo(tcgdex, set.id),
 		enabled: set.logo === undefined,
 	});
 

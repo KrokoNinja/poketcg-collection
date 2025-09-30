@@ -1,29 +1,56 @@
+"use client";
 import { assertLocale } from "@/i18n/routing";
-import TCGdex from "@tcgdex/sdk";
-import { getLocale } from "next-intl/server";
+import { useTcgdex } from "@/lib/context";
+import { getCardById } from "@/lib/tcgdex";
+import { useQuery } from "@tanstack/react-query";
+import { useLocale } from "next-intl";
 import Image from "next/image";
 import { notFound } from "next/navigation";
 
-export default async function SampleCard() {
-  const locale = await getLocale();
+export default function SampleCard() {
+	const locale = useLocale();
 
-  try {
-    assertLocale(locale);
-  } catch {
-    notFound();
-  }
+	try {
+		assertLocale(locale);
+	} catch {
+		notFound();
+	}
 
-  const tcgdex = new TCGdex(locale);
-  const card = await tcgdex.card.get("xy1-1");
+	const tcgdex = useTcgdex();
 
-  if (!card) {
-    notFound();
-  }
+	// Example card ID, replace with a valid one as needed
+	const cardId = "swsh3-136";
 
-  return (
-    <div>
-      <p>{card.name}</p>
-      <Image src={card.getImageURL("low", "webp")} alt={card.name} />
-    </div>
-  );
+	const {
+		data: card,
+		isPending,
+		error,
+	} = useQuery({
+		queryKey: ["card", cardId],
+		queryFn: () => getCardById(tcgdex, cardId),
+	});
+
+	if (isPending) {
+		return <div>Loading...</div>;
+	}
+
+	if (!card) {
+		return <p>Card not found</p>;
+	}
+
+	if (error) {
+		return <div>Error loading card</div>;
+	}
+
+	return (
+		<div>
+			<p>{card.name}</p>
+			<Image
+				src={card.getImageURL("low", "webp")}
+				alt={card.name}
+				width={150}
+				height={200}
+			/>
+		</div>
+	);
 }

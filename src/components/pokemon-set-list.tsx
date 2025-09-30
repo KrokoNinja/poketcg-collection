@@ -1,11 +1,11 @@
 "use client";
 import { assertLocale } from "@/i18n/routing";
-import TCGdex from "@tcgdex/sdk";
 import { notFound } from "next/navigation";
 import ContentWrapper from "./content-wrapper";
 import { useSuspenseQuery } from "@tanstack/react-query";
 import { useLocale, useTranslations } from "next-intl";
 import PokemonSetSingle from "./pokemon-set-single";
+import { useTcgdex } from "@/lib/context";
 
 export default function PokemonSetList() {
 	const locale = useLocale();
@@ -17,7 +17,7 @@ export default function PokemonSetList() {
 		notFound();
 	}
 
-	const tcgdex = new TCGdex(locale);
+	const tcgdex = useTcgdex();
 
 	const { data, error, isPending } = useSuspenseQuery({
 		queryKey: ["sets", locale],

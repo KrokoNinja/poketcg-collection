@@ -1,9 +1,11 @@
-import { Locale } from "@/i18n/routing";
 import TCGdex, { SetResume } from "@tcgdex/sdk";
 
-const tcgdex = new TCGdex("en");
+export const getDefaultLanguageSetLogo = async (
+	tcgdex: TCGdex,
+	setId: string | undefined,
+) => {
+	tcgdex.setLang("en"); // Ensure we are using a default language
 
-export const getDefaultLanguageSetLogo = async (setId: string | undefined) => {
 	if (!setId) return "/no-image-language";
 
 	try {
@@ -20,14 +22,24 @@ export const getDefaultLanguageSetLogo = async (setId: string | undefined) => {
 	}
 };
 
-export const getSetById = async (locale: Locale, setId: string | undefined) => {
+export const getSetById = async (tcgdex: TCGdex, setId: string | undefined) => {
 	if (!setId) throw new Error("No setId provided");
-
-	const tcgdex = new TCGdex(locale);
 
 	try {
 		const set = await tcgdex.set.get(setId);
 		return set;
+	} catch {
+		// Network/SDK error -> still return a defined value
+		throw new Error("Network or SDK error");
+	}
+};
+
+export const getCardById = async (tcgdex: TCGdex, cardId: string | undefined) => {
+	if (!cardId) throw new Error("No cardId provided");
+
+	try {
+		const card = await tcgdex.card.get(cardId);
+		return card;
 	} catch {
 		// Network/SDK error -> still return a defined value
 		throw new Error("Network or SDK error");

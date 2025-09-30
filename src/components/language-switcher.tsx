@@ -6,41 +6,39 @@ import { useLocale } from "next-intl";
 import { usePathname, useRouter } from "@/i18n/navigation";
 import { useParams } from "next/navigation";
 
-interface LanguageSwitcherProps {}
-
 export default function LanguageSwitcher() {
-  const currentLocale = useLocale();
-  const router = useRouter();
-  const params = useParams();
-  const pathname = usePathname();
+	const currentLocale = useLocale();
+	const router = useRouter();
+	const params = useParams();
+	const pathname = usePathname();
 
-  const flags: Record<Locale, string> = {
-    en: "🇬🇧",
-    de: "🇩🇪",
-  };
+	const flags: Record<Locale, string> = {
+		en: "🇬🇧",
+		de: "🇩🇪",
+	};
 
-  const onSelectChange = (newLocale: string) => {
-    router.replace(
-      // @ts-expect-error -- TypeScript will validate that only known `params`
-      // are used in combination with a given `pathname`. Since the two will
-      // always match for the current route, we can skip runtime checks.
-      { pathname, params },
-      { locale: newLocale as Locale }
-    );
-  };
+	const onSelectChange = (newLocale: string) => {
+		router.replace(
+			// @ts-expect-error -- TypeScript will validate that only known `params`
+			// are used in combination with a given `pathname`. Since the two will
+			// always match for the current route, we can skip runtime checks.
+			{ pathname, params },
+			{ locale: newLocale as Locale },
+		);
+	};
 
-  return (
-    <Select defaultValue={currentLocale} onValueChange={onSelectChange}>
-      <SelectTrigger>
-        <SelectValue />
-      </SelectTrigger>
-      <SelectContent>
-        {routing.locales.map((locale) => (
-          <SelectItem key={locale} value={locale}>
-            {locale} {flags[locale]}
-          </SelectItem>
-        ))}
-      </SelectContent>
-    </Select>
-  );
+	return (
+		<Select defaultValue={currentLocale} onValueChange={onSelectChange}>
+			<SelectTrigger>
+				<SelectValue />
+			</SelectTrigger>
+			<SelectContent>
+				{routing.locales.map(locale => (
+					<SelectItem key={locale} value={locale}>
+						{locale} {flags[locale]}
+					</SelectItem>
+				))}
+			</SelectContent>
+		</Select>
+	);
 }

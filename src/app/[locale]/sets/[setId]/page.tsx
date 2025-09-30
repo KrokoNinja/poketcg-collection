@@ -1,20 +1,23 @@
 "use client";
 import ContentWrapper from "@/components/content-wrapper";
-import PokemonSetSingleHeader from "@/components/pokemon-set-single-header";
+import PokemonSetDetailHeader from "@/components/pokemon-set-detail-header";
 import { use } from "react";
-import { assertLocale, Locale } from "@/i18n/routing";
+import { assertLocale } from "@/i18n/routing";
 import { getSetById } from "@/lib/tcgdex";
 import { useQuery } from "@tanstack/react-query";
 import { useLocale } from "next-intl";
 import { notFound } from "next/navigation";
+import PokemonSetDetailCards from "@/components/pokemon-set-detail-cards";
+import { useTcgdex } from "@/lib/context";
 
-interface PokemonSetSinglePageProps {
+interface PokemonSetDetailPageProps {
 	params: Promise<{ setId: string }>;
 }
 
-export default function PokemonSetSinglePage({ params }: PokemonSetSinglePageProps) {
+export default function PokemonSetDetailPage({ params }: PokemonSetDetailPageProps) {
 	const { setId } = use(params);
 	const locale = useLocale();
+	const tcgdex = useTcgdex();
 
 	try {
 		assertLocale(locale);
@@ -28,7 +31,7 @@ export default function PokemonSetSinglePage({ params }: PokemonSetSinglePagePro
 		error,
 	} = useQuery({
 		queryKey: ["getSet", locale, setId],
-		queryFn: () => getSetById(locale as Locale, setId),
+		queryFn: () => getSetById(tcgdex, setId),
 	});
 
 	if (isPending) {
@@ -40,7 +43,8 @@ export default function PokemonSetSinglePage({ params }: PokemonSetSinglePagePro
 	}
 	return (
 		<ContentWrapper>
-			<PokemonSetSingleHeader set={set} />
+			<PokemonSetDetailHeader set={set} />
+			<PokemonSetDetailCards setCards={set.cards} />
 		</ContentWrapper>
 	);
 }
